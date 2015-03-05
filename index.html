@@ -18,7 +18,7 @@
 		<link rel="stylesheet" href="css/theme/esri.css" id="theme">
 
 		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="lib/css/solarized.css">
 
 		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
 		<script>
@@ -38,81 +38,418 @@
 			<div class="slides">
 
 				<section class="left">
-					<h1>Authentication in ArcGIS Online</h1>
+					<h1>Zen of CSS Preprocessors</h1>
 					<h3>Patrick Arlt</h3>
 					<p>Experience Developer - ArcGIS for Developers</p>
 					<p><a href="http://twitter.com/patrickarlt">@patrickarlt</a> - <a href="http://patrickarlt.github.io/dev-summit-2015-authentication-in-arcgis-online/#/">http://arcg.is/1BAm5cz</a></p>
 				</section>
 
 				<section>
-					<h2>What is oAuth 2.0?</h2>
-					<p>A standard for conveying authorization decisions.</p>
-					<i>I {username} authorize {app name} to do {whatever}</i>
-				</section>
-
-				<section>
-					<h2>OAuth 2.0 is not an authentication protocol</h2>
-				</section>
-
-				<section>
-					<h2>OAuth 2.0 is used <i>inside</i> of authentication protocols</h2>
-				</section>
-
-				<section>
-					<h2>A Complete System</h2>
-					<p>oAuth 2.0 +ArcGIS Online Identities = ArcGIS Online Authentication
-				</section>
-
-				<section>
-					User Logins vs App Authentication
-				</section>
-
-				<section>
-					<h2>User Logins</h2>
-					<ol>
-						<li>User authorizes applicaitom</li>
-						<li>Application can act on users behalf</li>
-						<li>Usage if any is billed to that users organization</li>
-					</ol>
-				</section>
-
-				<section>
-					<h2>Use User Logins When...</h2>
+					<h2>What?</h2>
+					<p>Tools that add additonal tools and features to CSS.</p>
 					<ul>
-						<li>You have to work with private content</li>
-						<li>you need to create/edit content</li>
-						<li>want usage to be billed to your apps users</li>
+						<li>Varaibles</li>
+						<li>Nesting</li>
+						<li>Building</li>
+						<li>Functions</li>
+						<li>Lots of other stuff</li>
 					</ul>
 				</section>
 
 				<section>
-					<h2>Application Authentication</h2>
-					<ol>
-						<li>App exchanges credentials for token</li>
-						<li>Uses token to access premium services</li>
-						<li>Often implimented as a proxy</li>
-					</ol>
+					<h2>Sounds Cool! What should I use</h2>
+					<ul>
+						<li>SASS</li>
+						<li>Less</li>
+						<li>Stylus</li>
+					</ul>
+					<p>I'll focus on SASS.</p>
 				</section>
 
 				<section>
-					<h2>Use Application Authentication When&hellip;</h2>
+					<h2>Why SASS?</h2>
 					<ul>
-						<li>You only need to work with public and premium content</li>
-						<li>You dont want your users to sign in</li>
+						<li>Most stable and mature preprocessor</li>
+						<li>Node (C) and Ruby implimentations</li>
+						<li>Tons of differentiating features</li>
+						<li>Use your existing CSS files</li>
+						<li>Largest community</li>
+						<li>The most framework support</li>
+						<li>The most tooling (all others Node JS only)</li>
 					</ul>
 				</section>
 
 				<section>
-					<h2>Whats Changed Since Last Year?</h2>
+					<h2>Why NOT Less?</h2>
 					<ul>
-						<li>ArcGIS Portal 10.3 now supports oAuth 2.0</li>
-						<li>1st class oAuth 2.0 support in the JS API</li>
-						<li>Hosted proxies are available for some premium services</li>
+						<li>Major projects are moving away from it (Dojo, Bootstrap)</li>
+						<li>Smaller feature set</li>
+						<li>Smaller community</li>
+						<li>Slower compilation speeds</li>
 					</ul>
 				</section>
 
 				<section>
-					<h1>Stop! Demo Time!</h1>
+					<h2>Why NOT Stylus</h2>
+					<ul>
+						<li>Slowing development pace</li>
+						<li>No support from major projects or frameworks</li>
+						<li>Most minor frameworks also have a SASS implimentation</li>
+						<li>No outstanding features other then syntax</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Show Me The Feautres!</h2>
+				</section>
+
+				<section class="left">
+					<h4>Variables</h4>
+					<pre><code>
+$body-font: "Lucida Grande","Segoe UI", Arial, sans-serif;
+$header-font: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+
+body {
+	font-size: 100%;
+	font-family: $body-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $header-font;
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9313333">http://sassmeister.com/gist/9313333</a>
+				</section>
+
+				<section class="left">
+					<h4>Defaults</h4>
+					<pre><code class="scss">$button-color: #005E95;
+$button-color: #D71C0D !default; // doesn't override
+
+.button {
+	padding: 1em;
+	display: inline-block;
+	font-family: sans-serif;
+	color: white;
+	text-decoration: none;
+	border-radius: 3px;
+	background: $button-color;
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9330033">http://sassmeister.com/gist/9330033</a>
+				</section>
+
+				<section class="left">
+					<h4>Partials and Imports</h4>
+					<div class="block-group block-group-2-up">
+						<div class="block">
+							<pre><code class="scss">// framework/_defaults.scss
+
+$button-color: #005E95 !default;
+$body-font: Helvetica, Arial, sans-serif !default;
+$header-font: $body-font !default;</code></pre>
+
+							<pre><code class="scss">// _my-config.scss
+
+$button-color: #005E95;
+$body-font: "Lucida Grande","Segoe UI", Arial, sans-serif;
+$header-font: "Avenir LT W01 35 Light", Arial, Helvetica, sans-serif;</code></pre>
+						</div>
+						<div class="block">
+							<pre><code class="scss">// main.scss
+@import "framework/defaults";
+@import "my-config";
+@import "framework";
+
+body {
+	font-size: 100%;
+	font-family: $body-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: $header-font;
+}
+
+.button {
+	padding: 1em;
+	$background: $button-color;
+}</code></pre>
+						</div>
+					</div>
+				</section>
+
+				<section class="left">
+					<h4>Nesting</h4>
+							<pre><code class="scss">.header-bar {
+  background: #3984D2;
+  padding: 1rem;
+  font-family: sans-serif;
+  color: white;
+  h1 {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+  }
+  a {
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid white;
+    margin: 1rem 0 0 0;
+    padding: 0.75rem 2rem;
+    color: white;
+  }
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9330186">http://sassmeister.com/gist/9330186</a>
+				</section>
+
+				<section class="left">
+					<h4>Nesting Continued</h4>
+					<pre><code class="scss">.button {
+	padding: .75rem 1.5em;
+	display: inline-block;
+	font-family: sans-serif;
+	color: white;
+	text-decoration: none;
+	border-radius: 3px;
+	background: #005E95;
+	border: 2px solid #005E95;
+	&:hover {
+	  background: transparent;
+	  color: #005E95;
+	}
+	&.danger {
+	  background: #C01E1A;
+	  border-color: #C01E1A;
+	  &:hover {
+	    background: transparent;
+	    color: #C01E1A;
+	  }
+	}
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9330666">http://sassmeister.com/gist/9330666</a>
+				</section>
+
+				<section class="left">
+					<h4>Nesting Continued</h4>
+					<pre><code class="scss">.button {
+	padding: .75rem 1.5em;
+	display: inline-block;
+	font-family: sans-serif;
+	color: white;
+	text-decoration: none;
+	border-radius: 3px;
+	background: #005E95;
+	border: 2px solid #005E95;
+	&:hover {
+	  background: transparent;
+	  color: #005E95;
+	}
+	&-danger {
+	  background: #C01E1A;
+	  border-color: #C01E1A;
+	  &:hover {
+	    background: transparent;
+	    color: #C01E1A;
+	  }
+	}
+}</code></pre>
+					<a href="http://sassmeister.com/gist/36c93d5622f4f101558c">http://sassmeister.com/gist/36c93d5622f4f101558c</a>
+				</section>
+
+				<section class="left">
+					<h4><code>@mixin</code></h4>
+<pre><code class="scss">@mixin button-color($color){
+  background: $color;
+  border-color: $color;
+  &:hover {
+    background: transparent;
+    border-color: $color;
+    color: $color;
+  }
+}
+
+.button {
+	padding: .75rem 1.5em;
+	display: inline-block;
+	font-family: sans-serif;
+	color: white;
+	text-decoration: none;
+	border: 2px solid;
+	@include button-color(#005E95);
+	&.danger {
+	  @include button-color(#C01E1A);
+	}
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9331344">http://sassmeister.com/gist/9331344</a>
+				</section>
+
+				<section class="left">
+					<h4><code>@media</code></h4>
+					<pre><code class="scss">html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  color: white;
+}
+
+body {
+  background: green;
+  @media screen and (max-width: 1024px) {
+    background: blue;
+  }
+  @media screen and (max-width: 768px) {
+    background: red;
+  }
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9331447">http://sassmeister.com/gist/9331447</a>
+				</section>
+
+				<section class="left">
+					<h4><code>@mixin</code> for Responsive Design</h4>
+					<pre><code class="scss">@mixin on-small-screens (){
+  @media screen and (max-width: 768px){
+    @content
+  }
+}
+
+.article-header {
+  font-family: sans-serif;
+  font-size: 4rem;
+  @include on-small-screens {
+    font-size: 2rem;
+  }
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9331704">http://sassmeister.com/gist/9331704</a>
+				</section>
+
+				<section class="left">
+					<h4>IE Specific <code>@mixin</code></h4>
+							<pre><code class="html">&lt;!--[if IE 8]&gt;&lt;html class=&quot;ie ie8&quot;&gt;&lt;![endif]--&gt;
+&lt;!--[if !IE]&gt;&lt;!--&gt;&lt;html&gt;&lt;!--&lt;![endif]--&gt;</code></pre>
+							<pre><code class="scss">@mixin for-ie8(){
+  html.ie8 & {
+    @content;
+  }
+}
+
+.my-layout {
+  float: left;
+  @include for-ie8 {
+    float: none;
+  }
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9331753">http://sassmeister.com/gist/9331753</a>
+				</section>
+
+				<section class="left">
+					<h4><code>@mixin</code> for Print Styles</h4>
+					<pre><code class="scss">@mixin for-print(){
+  @media print {
+    @content
+  }
+}
+
+header {
+  background: black;
+  color: white;
+  @include for-print {
+    background: white;
+    color: black;
+  }
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9332042">http://sassmeister.com/gist/9332042</a>
+				</section>
+
+				<section class="left">
+					<h4>Retina Display <code>@mixin</code></h4>
+					<pre><code class="scss">@mixin for-retina-display {
+  @media only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (-moz-min-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx){
+      @content
+  }
+}
+
+small {
+  font-size: 13px;
+  @include for-retina-display {
+    font-size: 11px;
+  }
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9332258">http://sassmeister.com/gist/9332258</a>
+				</section>
+
+				<section class="left">
+					<h4><code>@extend</code></h4>
+						<pre><code class="scss">@mixin button-color($color){ ... }
+
+.button {
+  padding: .75rem 1.5em;
+	display: inline-block;
+	font-family: sans-serif;
+	color: white;
+	text-decoration: none;
+	border: 2px solid;
+	@include button-color(gray);
+}
+
+.main-button {
+  @extend .button;
+  @include button-color(#005E95);
+}
+
+.danger-button {
+  @extend .button;
+  @include button-color(#C01E1A);
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9332450">http://sassmeister.com/gist/9332450</a>
+				</section>
+
+				<section class="left">
+					<h4><code>@placeholder</code></h4>
+					<pre><code class="scss">@mixin button-color($color){ ... }
+
+%button {
+  padding: .75rem 1.5em;
+	display: inline-block;
+	font-family: sans-serif;
+	color: white;
+	text-decoration: none;
+	border: 2px solid;
+}
+
+.main-button {
+  @extend %button;
+  @include button-color(#005E95);
+}
+
+.danger-button {
+  @extend %button;
+  @include button-color(#C01E1A);
+}</code></pre>
+					<a href="http://sassmeister.com/gist/9332472">http://sassmeister.com/gist/9332472</a>
+				</section>
+
+				<section>
+					<h2>Stuff using SASS</h2>
+					<ul>
+						<li><a href="http://getbootstrap.com/css/#sass">Bootstrap</a></li>
+						<li><a href="http://foundation.zurb.com/docs/sass.html">Foundation</a></li>
+						<li><a href="http://www.basscss.com/docs/guides/custom-builds/#sass">BassCSS</a></li>
+						<li><a href="http://bourbon.io/">Bourbon/Neat/Bitters</a></li>
+						<li><a href="http://compass-style.org/">Compass</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Get Started</h2>
+					<ul>
+						<li>Install SASS (<a href="https://github.com/sass/node-sass#usage-1">Node</a> or <a href="http://sass-lang.com/install">Ruby</a>)</li>
+						<li><a href="http://sass-lang.com/guide">Learn SASS</a></li>
+						<li>Grunt Plugin (<a href="https://github.com/sindresorhus/grunt-sass">node-sass</a> or <a href="https://github.com/gruntjs/grunt-contrib-sass">Ruby SASS</a> )</a></li>
+						<li>Gulp Plugin (<a href="https://github.com/dlmanning/gulp-sass">node-sass</a> or <a href="https://github.com/sindresorhus/gulp-ruby-sass">Ruby SASS</a> )</a></li>
+					</ul>
 				</section>
 
 				<section>
